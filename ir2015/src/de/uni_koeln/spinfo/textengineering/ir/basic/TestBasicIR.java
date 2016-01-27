@@ -11,6 +11,8 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.uni_koeln.spinfo.textengineering.ir.boole.TermDokumentMatrix;
+
 /**
  * @author spinfo
  *
@@ -19,6 +21,7 @@ public class TestBasicIR {
 
 	private static Corpus corpus;
 	private String query;
+	private InformationRetrieval ir;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
@@ -37,16 +40,18 @@ public class TestBasicIR {
 	}
 
 	@Test
-	public void testSearch() {
+	public void testLinearSearch() {
 		// Testen, ob lineare Suche ein Ergebnis liefert:
 
 		System.out.println();
 		System.out.println("Lineare Suche:");
 		System.out.println("-------------------");
-		LinearSearch linear = new LinearSearch(corpus);
+		ir = new LinearSearch(corpus);
 
-		query = "Brutus";
-		Set<Integer> result = linear.search(query);
+		query = "Brutus Caesar";
+		Set<Integer> result = ir.search(query);
+		assertTrue("Mindestens ein Treffer erwartet", result.size() >= 1);
+		System.out.println("Ergebnis für " + query + ": " + result);
 	}
-
+	
 }
